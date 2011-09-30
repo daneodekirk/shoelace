@@ -5,8 +5,6 @@ html ->
     title -> 'Cake'
 
     link rel: 'stylesheet', href: 'css/docs.css'
-    link rel: 'stylesheet/less', href: 'bootstrap/lib/bootstrap.less'
-    script src: 'js/less.js'
     script src: 'http://code.jquery.com/jquery.min.js'
 
   body ->
@@ -59,6 +57,21 @@ html ->
           div '.row.show-grid', ->
             span '.span16', -> '16'
 
+    #link id:'bootstrap', rel:'stylesheet/less', href:"/bootstrap/scaffolding"
+    style id:'test'
+
+    script src: 'js/less.js'
+
+    coffeescript ->
+      $ ->
+        style = $('#test')
+        $.get '/bootstrap/scaffolding', (data) ->
+          parser = less.Parser()
+          parser.parse data, (err, tree) ->
+            throw err if err
+            style.html tree.toCSS compress:true
 
 
-    
+
+
+
