@@ -19,6 +19,7 @@ html ->
           a '.brand', href:'#', -> "Bootstrap"
           ul '.nav', ->
           form '#prevnext.pull-right', ->
+            button '.prev.btn', 'data-step':'scaffolding', -> 'Previous'
             button '.next.btn.info', 'data-step':'scaffolding', -> 'Next'
     
     div '.container', ->
@@ -37,31 +38,33 @@ html ->
 
             div '.row.show-grid', ->
               span '#current-width.span16', style:'height:450px;', ->
-                h2 'WIDTH'
+                h2 '940px'
 
           # Site Scaffolding
           section '#grid-system', ->
             div '.page-header', ->
-            h1 ->
-              text 'Grid System '
-              small 'Roll your own'
-            div '.row.controls', ->
-              div '.span4', ->
-                text 'Pick the span you wish to use'
-              div '.span11', ->
-                text 'these are the controls'
+              h1 ->
+                text 'Grid System '
+                small 'Roll your own'
+              div '.row.controls', ->
+                div '.span4', ->
+                  text 'Pick the span you wish to use'
+                div '.span11', ->
+                  text 'these are the controls'
+
+            div '.row.show-grid', ->
 
           # Site Colors
           section '#site-colors', ->
             div '.page-header', ->
-            h1 ->
-              text 'Colors '
-              small 'Roll your own'
-            div '.row.controls', ->
-              div '.span4', ->
-                text 'Pick the span you wish to use'
-              div '.span11', ->
-                text 'these are the controls'
+              h1 ->
+                text 'Colors '
+                small 'Roll your own'
+              div '.row.controls', ->
+                div '.span4', ->
+                  text 'Pick the span you wish to use'
+                div '.span11', ->
+                  text 'these are the controls'
 
   coffeescript ->
     $ ->
@@ -91,28 +94,17 @@ html ->
         return false
 
       $('.next').click (e) ->
-        step = $(this).data 'step'
-        $.get "/step/#{step}", (data) ->
-          width = $(window).width()
-          $(data).find('section').css marginLeft:1.5*width
-          $('.content section')
-            .after(data)
-            .animate
-              marginLeft:-1*width
-            , 300, -> $(this).hide()
+        width = $('.content section').width() + 400
+        $('.mask')
+          .animate
+            marginLeft:"+=#{-1*width}"
+          , 300
         return false
 
-        #$.get "/step/scaffolding/#{width}", (data) ->
-        #  $('.content')
-        #    .prepend(data)
-        #    .find('#slider')
-        #    .slider
-        #      value:940,
-        #      min: 780,
-        #      max: 1100,
-        #      step: 10,
-        #      slide: ( event, ui ) ->
-        #        $('#current-width').html("#{ui.value}px")
-        #          .css
-        #            'width': ui.value
-        #            'margin-left': (940 - ui.value)/2 + 20
+      $('.prev').click (e) ->
+        width = $('.content section').width() + 400
+        $('.mask')
+          .animate
+            marginLeft:"-=#{-1*width}"
+          , 300
+        return false

@@ -25,6 +25,10 @@ app.get '/step/scaffolding/:width?', (request, response) ->
   width = request.param 'width'
   response.render 'scaffolding', width:width
 
+app.post '/grid/:size?', (request, response) ->
+  size = request.param 'size'
+  console.log size
+  response.send JSON.stringify size:size
 
 app.listen 1123
 console.log "Server running on port #{app.address().port}"
