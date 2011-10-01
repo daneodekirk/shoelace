@@ -2,7 +2,17 @@ body {
   overflow:hidden;
 }
 section {
-  width: 100%;
+  float:left;
+  height:700px;
+  width:940px;
+  padding-right:400px;
+}
+
+.mask {
+  width:10000px;
+  height:700px;
+}
+.content {
 }
 #current-width h2 {
   margin-top:200px;

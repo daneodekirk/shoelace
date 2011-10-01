@@ -23,28 +23,66 @@ html ->
     
     div '.container', ->
       div '.content', ->
+        div '.mask', ->
+          # Site Width
+          section '#site-width', ->
+            div '.page-header', ->
+              h1 ->
+                text 'Site Width '
+                small 'Adjust site width'
 
+              div '.row controls', ->
+                span '.span16' , ->
+                  div '#slider', ->
 
-    coffeescript ->
-      $ ->
-        width = 940
-        $.get '/step/width', (data) ->
-          $('.content')
-            .prepend(data)
-            .find('#slider')
-            .slider
-              value:940,
-              min: 780,
-              max: 1100,
-              step: 10,
-              slide: ( event, ui ) ->
-                $('#current-width')
-                  .css(
-                    'width': ui.value
-                    'margin-left': (940 - ui.value)/2 + 20
-                  )
-                  .find('h2')
-                  .html("#{ui.value}px")
+            div '.row.show-grid', ->
+              span '#current-width.span16', style:'height:450px;', ->
+                h2 'WIDTH'
+
+          # Site Scaffolding
+          section '#grid-system', ->
+            div '.page-header', ->
+            h1 ->
+              text 'Grid System '
+              small 'Roll your own'
+            div '.row.controls', ->
+              div '.span4', ->
+                text 'Pick the span you wish to use'
+              div '.span11', ->
+                text 'these are the controls'
+
+          # Site Colors
+          section '#site-colors', ->
+            div '.page-header', ->
+            h1 ->
+              text 'Colors '
+              small 'Roll your own'
+            div '.row.controls', ->
+              div '.span4', ->
+                text 'Pick the span you wish to use'
+              div '.span11', ->
+                text 'these are the controls'
+
+  coffeescript ->
+    $ ->
+      width = 940
+      #$.get '/step/width', (data) ->
+      $('.content')
+        #.prepend(data)
+        .find('#slider')
+        .slider
+          value:940,
+          min: 780,
+          max: 1100,
+          step: 10,
+          slide: ( event, ui ) ->
+            $('#current-width')
+              .css(
+                'width': ui.value
+                'margin-left': (940 - ui.value)/2 + 20
+              )
+              .find('h2')
+              .html("#{ui.value}px")
 
   coffeescript ->
     $ ->
