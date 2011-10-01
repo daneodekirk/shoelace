@@ -19,11 +19,11 @@ app.get '/', (request, response) ->
   response.render 'index', foo: 'bar'
 
 app.get '/step/width', (request, response) ->
-  response.render width
+  response.render 'width'
   
 app.get '/step/scaffolding/:width?', (request, response) ->
   width = request.param 'width'
-  response.render scaffolding, width:width
+  response.render 'scaffolding', width:width
 
 
 app.listen 1123

@@ -5,6 +5,7 @@ html ->
     title -> 'Cake'
 
     link rel: 'stylesheet', href: 'css/ui-lightness/jquery-ui-1.8.16.custom.css'
+    link rel: 'stylesheet', href: 'css/app.css'
     link rel: 'stylesheet', href: 'css/docs.css'
     link id:'bootstrap', rel:'stylesheet/less', href:"/bootstrap/lib/bootstrap.less"
     script src: 'js/less.js'
@@ -17,8 +18,8 @@ html ->
         div '.container', ->
           a '.brand', href:'#', -> "Bootstrap"
           ul '.nav', ->
-            li -> a href:"#overview", -> 'Overview'
-            li -> a href:"#overview", -> 'Grid'
+          form '#prevnext.pull-right', ->
+            button '.next.btn.info', 'data-step':'scaffolding', -> 'Next'
     
     div '.container', ->
       div '.content', ->
@@ -37,22 +38,43 @@ html ->
               max: 1100,
               step: 10,
               slide: ( event, ui ) ->
-                $('#current-width').html("#{ui.value}px")
-                  .css
+                $('#current-width')
+                  .css(
                     'width': ui.value
                     'margin-left': (940 - ui.value)/2 + 20
+                  )
+                  .find('h2')
+                  .html("#{ui.value}px")
 
-        $.get "/step/scaffolding/#{width}", (data) ->
-          $('.content')
-            .prepend(data)
-            .find('#slider')
-            .slider
-              value:940,
-              min: 780,
-              max: 1100,
-              step: 10,
-              slide: ( event, ui ) ->
-                $('#current-width').html("#{ui.value}px")
-                  .css
-                    'width': ui.value
-                    'margin-left': (940 - ui.value)/2 + 20
+  coffeescript ->
+    $ ->
+      steps = ['width', 'scaffolding']
+      $('#prevnext').submit ->
+        return false
+
+      $('.next').click (e) ->
+        step = $(this).data 'step'
+        $.get "/step/#{step}", (data) ->
+          width = $(window).width()
+          $(data).find('section').css marginLeft:1.5*width
+          $('.content section')
+            .after(data)
+            .animate
+              marginLeft:-1*width
+            , 300, -> $(this).hide()
+        return false
+
+        #$.get "/step/scaffolding/#{width}", (data) ->
+        #  $('.content')
+        #    .prepend(data)
+        #    .find('#slider')
+        #    .slider
+        #      value:940,
+        #      min: 780,
+        #      max: 1100,
+        #      step: 10,
+        #      slide: ( event, ui ) ->
+        #        $('#current-width').html("#{ui.value}px")
+        #          .css
+        #            'width': ui.value
+        #            'margin-left': (940 - ui.value)/2 + 20

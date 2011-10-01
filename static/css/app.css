@@ -1,0 +1,10 @@
+body {
+  overflow:hidden;
+}
+section {
+  width: 100%;
+}
+#current-width h2 {
+  margin-top:200px;
+  font-size: 11em;
+}
