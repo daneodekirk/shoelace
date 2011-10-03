@@ -31,6 +31,11 @@ app.post '/grid/:size?', (request, response) ->
   console.log size
   response.send JSON.stringify size:size
 
+app.post '/shoelaces', (request, response) ->
+  size = request.param 'settings'
+  console.log size
+  response.send JSON.stringify size:size
+
 app.get '/:script.js', (request, response) ->
   response.header 'Content-Type', 'application/x-javascript'
   file = fs.readFileSync "#{STATIC}/js/#{request.param 'script'}.coffee", "ascii"

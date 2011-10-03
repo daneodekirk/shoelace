@@ -136,27 +136,21 @@ html ->
               span '.span3', ->
                 button '.btn', style:'background-color:#7a43b6', 'data-color':'purple', -> 'Purple'
                 
-                
+             div '.page-header', ->
+               h1 ->
+                 text 'Gimme CSS'
+              span '.span3', ->
+                button '.gimme.btn.success', -> 'Minified'
+                button '.gimme.btn.info', -> 'Source'
 
 
+
+               
           # Site Scaffolding
           section '#grid-system', ->
             div '.page-header', ->
               h1 ->
                 text 'Grid System '
-                small 'Roll your own'
-              div '.row.controls', ->
-                div '.span4', ->
-                  text 'Pick the span you wish to use'
-                div '.span11', ->
-                  text 'these are the controls'
-
-
-          # Site Colors
-          section '#site-colors', ->
-            div '.page-header', ->
-              h1 ->
-                text 'Colors '
                 small 'Roll your own'
               div '.row.controls', ->
                 div '.span4', ->

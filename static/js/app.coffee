@@ -55,7 +55,6 @@ $(document).ready ->
             $(this).empty()
             val = Math.floor ui.value / $(this).data 'span'
             mod = ui.value % val
-            console.log mod
             $(this).append("<span class='span#{val}'>#{index}</span>") for num in [val..1]
             $(this).append("<span class='span#{mod} appended'>#{mod}</span>") if mod isnt 0
             #if ui.value > settings.cols and ui.value >= 16 then $(this).append("<span class='span#{1} appended'>1</span>") else $(this).find('.appended:last').remove() 
@@ -133,6 +132,7 @@ $(document).ready ->
 
   $('#site-width')
     .find('.btn')
+    .not('.gimme')
     .each ->
       $(this).bind 'click', () ->
         color = settings[$(this).data('color')]
@@ -148,6 +148,11 @@ $(document).ready ->
 
   #$('#hex').bind 'focus', ->
   #  $('#colors').farbtastic('#hex')
+  #
+  $('.gimme').click ->
+    $.post '/shoelaces', settings, (data) ->
+      console.log settings
+    return false
 
           
         
