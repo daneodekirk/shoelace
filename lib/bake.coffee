@@ -2,6 +2,7 @@ express = require 'express'
 less = require 'less'
 app = express.createServer()
 fs = require 'fs'
+coffee = require 'coffee-script'
 
 ONEWEEK = 2629743000
 STATIC = "#{process.cwd()}/static"
@@ -29,6 +30,11 @@ app.post '/grid/:size?', (request, response) ->
   size = request.param 'size'
   console.log size
   response.send JSON.stringify size:size
+
+app.get '/:script.js', (request, response) ->
+  response.header 'Content-Type', 'application/x-javascript'
+  file = fs.readFileSync "#{STATIC}/js/#{request.param 'script'}.coffee", "ascii"
+  response.send coffee.compile file
 
 app.listen 1123
 console.log "Server running on port #{app.address().port}"

@@ -1,5 +1,5 @@
 body {
-  overflow:hidden;
+  /*overflow:hidden;*/
 }
 #prevnext button {
   margin: 0 3px;
@@ -17,7 +17,4 @@ section {
 }
 .content {
 }
-#current-width h2 {
-  margin-top:200px;
-  font-size: 11em;
-}
+
