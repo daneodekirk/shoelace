@@ -1,5 +1,8 @@
+html,body{
+  height:100%;
+}
 body {
-  /*overflow:hidden;*/
+  overflow-x:hidden;
 }
 #prevnext button {
   margin: 0 3px;
@@ -15,6 +18,15 @@ section {
   width:10000px;
   height:700px;
 }
-.content {
+#current-width h2 {
+  font-size: 5em;
+  margin-top: 45px;
 }
-
+#preview {
+  padding-bottom:50px;
+}
+#colors {
+  position:absolute;
+  background:white;
+  padding-top:100px;
+}

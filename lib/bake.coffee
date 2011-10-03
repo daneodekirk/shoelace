@@ -14,7 +14,7 @@ app.register '.coffee', require('coffeekup').adapters.express
 app.use express.static "#{STATIC}", { maxAge: ONEWEEK }
 app.use express.bodyParser()
 app.use express.errorHandler()
-app.use express.compiler { src:"#{STATIC}", enable: ['less'] }
+#app.use express.compiler { src:"#{STATIC}", enable: ['less'] }
 
 app.get '/', (request, response) ->
   response.render 'index', foo: 'bar'

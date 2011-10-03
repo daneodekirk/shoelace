@@ -1,9 +1,19 @@
-$ ->
+$(document).ready ->
   settings =
     width: 960,
     cols: 16,
     colw: 40,
     gutter: 20
+    basefont:13
+    baseline:18
+    blue:'#049cdB'
+    darkblue:'#0064cd'
+    green:'#46a546'
+    red:'#9d261d'
+    yellow:'#ffc40d'
+    orange:'#f89406'
+    pink:'#c3325f'
+    purple:'#7a43b6'
 
   #$('.row.show-grid').each ->
   #    $(this).data('span', $(this).attr('data-span'))
@@ -54,7 +64,7 @@ $ ->
           span = $(this).data 'span'
           width = settings.colw * span + (settings.gutter * (span - 1))
           $(this).find('span').not('.appended')
-            .css 'width', width
+            .css 'width': width, 'margin-left':"#{settings.gutter}px"
         settings.cols = ui.value
         adjustWidth settings
 
@@ -89,21 +99,59 @@ $ ->
           $(this).find('span').not('.appended')
             .css 'width': width, 'margin-left':"#{ui.value}px"
         adjustWidth settings
+  
+  ### 
+  # font size here
+  ###
 
-adjustWidth = (settings) ->
-      sitewidth = (settings.cols * settings.colw) + (settings.gutter * (settings.cols - 1))
-      $('#current-width').find('h2').html "#{sitewidth}px"
+  $('#baseline, #basefont').bind 'keyup', (e) ->
+    val = Number $(this).val()
+    $(this).val(val+1) if e.keyCode is 38 
+    $(this).val(val-1) if e.keyCode is 40
+    settings.basefont = $('#basefont').val()
+    settings.baseline = $('#baseline').val()
+    $(this).closest('.row')
+      .find('h1')
+      .css( 'marginBottom', "#{settings.baseline}px",)
+        .end()
+      .closest('.row')
+      .find('p')
+      .css(
+        'marginBottom': "#{settings.basefont / 2}px",
+        'fontSize': "#{settings.basefont }px"
+      )
+      .find('small')
+      .css('fontSize', "#{settings.basefont - 2}px")
+        .end()
+      .closest('.row')
+      .find('.btn')
+      .css('fontSize', "#{settings.basefont}px")
 
-      $('#preview') 
-        .css(
-          'width': sitewidth + 20
-          'margin-left': (940 - sitewidth)/2
-        )
-    
+  ###
+  # Button Colors
+  ###
 
+  $('#site-width')
+    .find('.btn')
+    .each ->
+      $(this).bind 'click', () ->
+        color = settings[$(this).data('color')]
+        $('#colorpicker').insertAfter($(this))
+          .fadeIn(200)
+          .find('input')
+          .val(color)
 
+  $('#hex').bind 'blur', ->
+    color = $(this).parent().siblings('button').data('color')
+    val = $(this).val()
+    settings[color] = val
 
-$ ->
+  #$('#hex').bind 'focus', ->
+  #  $('#colors').farbtastic('#hex')
+
+          
+        
+
   steps = ['width', 'scaffolding']
   $('#prevnext').submit ->
     return false
@@ -123,3 +171,13 @@ $ ->
         marginLeft:"-=#{-1*width}"
       , 300
     return false
+
+adjustWidth = (settings) ->
+      sitewidth = (settings.cols * settings.colw) + (settings.gutter * (settings.cols - 1))
+      $('#current-width').find('h2').html "#{sitewidth}px"
+
+      $('#preview') 
+        .css(
+          'width': sitewidth + 20
+          'margin-left': (940 - sitewidth)/2
+        )
