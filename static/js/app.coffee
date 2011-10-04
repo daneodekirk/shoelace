@@ -31,6 +31,7 @@ $(document).ready ->
       max: 1100,
       step: 10,
       slide: ( event, ui ) ->
+        settings.width = ui.value
         $('#site-width').children('div')
           .css(
             'width': ui.value
@@ -105,7 +106,7 @@ $(document).ready ->
 
   $('#baseline, #basefont').bind 'keyup', (e) ->
     val = Number $(this).val()
-    $(this).val(val+1) if e.keyCode is 38 
+    $(this).val(val+1) if e.keyCode is 38
     $(this).val(val-1) if e.keyCode is 40
     settings.basefont = $('#basefont').val()
     settings.baseline = $('#baseline').val()
@@ -146,16 +147,29 @@ $(document).ready ->
     val = $(this).val()
     settings[color] = val
 
-  #$('#hex').bind 'focus', ->
-  #  $('#colors').farbtastic('#hex')
-  #
   $('.gimme').click ->
-    $.post '/shoelaces', settings, (data) ->
-      console.log settings
+    settings.minify = $(this).data 'minify'
+    $.post '/shoelaces', {'settings':settings}, (data) ->
+      $('#code').html(data)
     return false
 
-          
-        
+  $('#code').click ->
+    doc = document
+    text = $(this).get(0)
+    if doc.body.createTextRange
+        range = document.body.createTextRange()
+        range.moveToElementText(text)
+        range.select()
+    else if window.getSelection
+        selection = window.getSelection()
+        if selection.setBaseAndExtent
+            selection.setBaseAndExtent(text, 0, text, 1)
+        else
+            range = document.createRange()
+            range.selectNodeContents(text)
+            selection.removeAllRanges()
+            selection.addRange(range)
+    
 
   steps = ['width', 'scaffolding']
   $('#prevnext').submit ->
@@ -180,8 +194,9 @@ $(document).ready ->
 adjustWidth = (settings) ->
       sitewidth = (settings.cols * settings.colw) + (settings.gutter * (settings.cols - 1))
       $('#current-width').find('h2').html "#{sitewidth}px"
+      settings.width = sitewidth
 
-      $('#preview') 
+      $('#preview')
         .css(
           'width': sitewidth + 20
           'margin-left': (940 - sitewidth)/2

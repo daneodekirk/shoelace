@@ -19,22 +19,60 @@ app.use express.errorHandler()
 app.get '/', (request, response) ->
   response.render 'index', foo: 'bar'
 
-app.get '/step/width', (request, response) ->
-  response.render 'width'
-  
-app.get '/step/scaffolding/:width?', (request, response) ->
-  width = request.param 'width'
-  response.render 'scaffolding', width:width
-
-app.post '/grid/:size?', (request, response) ->
-  size = request.param 'size'
-  console.log size
-  response.send JSON.stringify size:size
-
 app.post '/shoelaces', (request, response) ->
-  size = request.param 'settings'
-  console.log size
-  response.send JSON.stringify size:size
+  settings = request.param 'settings'
+  console.log settings
+  response.header 'Content-Type: text/css'
+  variables = """ 
+    // Links
+    @linkColor:         #0069d6;
+    @linkColorHover:    darken(@linkColor, 15);
+
+    // Accent Colors
+    @blue:              #{settings.blue};
+    @blueDark:          #{settings.darkblue};
+    @green:             #{settings.green};
+    @red:               #{settings.red};
+    @yellow:            #{settings.yellow};
+    @orange:            #{settings.orange};
+    @pink:              #{settings.pink};
+    @purple:            #{settings.purple};
+
+    // Baseline grid
+    @basefont:          #{settings.basefont}px;
+    @baseline:          #{settings.baseline}px;
+
+    // Griditude
+    @gridColumns:       #{settings.cols};
+    @gridColumnWidth:   #{settings.colw}px;
+    @gridGutterWidth:   #{settings.gutter}px;
+    @extraSpace:        (@gridGutterWidth * 2);
+    @siteWidth:         (@gridColumns * @gridColumnWidth) + (@gridGutterWidth * (@gridColumns - 1));
+  """
+  cssfiles = [
+    "#{STATIC}/bootstrap/lib/reset.less",
+    "#{STATIC}/bootstrap/lib/variables.less",
+    "#{STATIC}/bootstrap/lib/mixins.less",
+    "#{STATIC}/bootstrap/lib/scaffolding.less",
+    "#{STATIC}/bootstrap/lib/type.less",
+    "#{STATIC}/bootstrap/lib/forms.less",
+    "#{STATIC}/bootstrap/lib/tables.less",
+    "#{STATIC}/bootstrap/lib/patterns.less",
+  ]
+
+  lesscss = new Array remaining = cssfiles.length
+  for file, index in cssfiles then do (file, index) ->
+    fs.readFile "#{file}", 'utf8', (err, fileContents) ->
+      throw err if err
+      lesscss[index] = fileContents
+      process() if --remaining is 0
+  process = ->
+    lesscss.splice 2, 0, variables
+    cssstring = lesscss.join('\n\n')
+    parser = new less.Parser
+    parser.parse cssstring, (err, tree) ->
+      throw err if err
+      response.send tree.toCSS(compress:settings.minify)
 
 app.get '/:script.js', (request, response) ->
   response.header 'Content-Type', 'application/x-javascript'

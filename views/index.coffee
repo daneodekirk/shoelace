@@ -2,7 +2,7 @@ doctype 5
 html ->
   head ->
     meta charset: 'utf-8'
-    title -> 'Cake'
+    title -> 'Shoelace - A Bootstrap CSS generator'
 
     link rel: 'stylesheet', href: 'css/ui-lightness/jquery-ui-1.8.16.custom.css'
     link rel: 'stylesheet', href: 'css/app.css'
@@ -19,11 +19,11 @@ html ->
     div '.topbar', ->
       div '.topbar-inner', ->
         div '.container', ->
-          a '.brand', href:'#', -> "Bootstrap"
+          a '.brand', -> "Shoelace"
           ul '.nav', ->
-          form '#prevnext.pull-right', ->
-            button '.prev.btn', 'data-step':'scaffolding', -> 'Previous'
-            button '.next.btn.info', 'data-step':'scaffolding', -> 'Next'
+            #form '#prevnext.pull-right', ->
+            #button '.prev.btn', 'data-step':'scaffolding', -> 'Previous'
+            #button '.next.btn.info', 'data-step':'scaffolding', -> 'Next'
     
     div '.container', ->
       div '.content', ->
@@ -33,7 +33,7 @@ html ->
             div '.page-header', ->
               h1 ->
                 text 'Site Width '
-                small 'Adjust site width'
+                small 'how big is big enough?'
 
               div '.row controls', ->
                 span '.span4' , ->
@@ -70,7 +70,7 @@ html ->
             div '.page-header', ->
               h1 ->
                 text 'Typography '
-                small "How big is big enough?"
+                small "glasses-free"
 
             div '.row', ->
               div '.span4.font-controls', ->
@@ -109,7 +109,7 @@ html ->
             div '.page-header', ->
               h1 ->
                 text 'Colors '
-                small "Brighten it up a bit?"
+                small "brighten it up a bit"
 
             div '#colorpicker.input-append', style:'display:none', ->
               input '.small', id:'hex', name:'hex', type:'text', value:'#ffc40d', style:'width:85px', maxlength:7 
@@ -139,11 +139,11 @@ html ->
              div '.page-header', ->
                h1 ->
                  text 'Gimme CSS'
-              span '.span3', ->
-                button '.gimme.btn.success', -> 'Minified'
-                button '.gimme.btn.info', -> 'Source'
-
-
+              span '.span16', ->
+                div '.well', ->
+                  button '.gimme.btn.success', 'data-minify':true, -> 'Minified'
+                  button '.gimme.btn.info', 'data-minify':false, -> 'Source'
+                pre '#code', ->
 
                
           # Site Scaffolding
