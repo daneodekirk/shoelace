@@ -4,6 +4,10 @@ app = express.createServer()
 fs = require 'fs'
 coffee = require 'coffee-script'
 
+parser = require('uglify-js').parser
+uglify = require('uglify-js').uglify
+
+
 ONEWEEK = 2629743000
 STATIC = "#{process.cwd()}/static"
 
@@ -17,11 +21,10 @@ app.use express.errorHandler()
 #app.use express.compiler { src:"#{STATIC}", enable: ['less'] }
 
 app.get '/', (request, response) ->
-  response.render 'index', foo: 'bar'
+  response.render 'index'
 
 app.post '/shoelaces', (request, response) ->
   settings = request.param 'settings'
-  console.log settings
   response.header 'Content-Type: text/css'
   variables = """ 
     // Links
@@ -74,10 +77,15 @@ app.post '/shoelaces', (request, response) ->
       throw err if err
       response.send tree.toCSS(compress:settings.minify)
 
+      
+
 app.get '/:script.js', (request, response) ->
   response.header 'Content-Type', 'application/x-javascript'
   file = fs.readFileSync "#{STATIC}/js/#{request.param 'script'}.coffee", "ascii"
-  response.send coffee.compile file
+  script = coffee.compile file
+  ast = parser.parse script
+  compressed = uglify.gen_code uglify.ast_squeeze uglify.ast_mangle ast, extra: yes
+  response.send compressed
 
 app.listen 1123
 console.log "Server running on port #{app.address().port}"

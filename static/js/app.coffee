@@ -19,7 +19,6 @@ $(document).ready ->
   #    $(this).data('span', $(this).attr('data-span'))
   #      .removeAttr('data-span')
 
-  width = 940
   grid = $('.row.show-grid span')
   #$.get '/step/width', (data) ->
   $('.content')
@@ -47,7 +46,7 @@ $(document).ready ->
       max: 32,
       step: 1,
       slide: (event, ui) ->
-        $('#columns span').html(ui.value)
+        $('#column-value').html(ui.value)
         $('.row.show-grid').each (index, element) ->
           currentspan = $(this).data 'span'
           if index is 0 or index is 4
@@ -58,7 +57,6 @@ $(document).ready ->
             mod = ui.value % val
             $(this).append("<span class='span#{val}'>#{index}</span>") for num in [val..1]
             $(this).append("<span class='span#{mod} appended'>#{mod}</span>") if mod isnt 0
-            #if ui.value > settings.cols and ui.value >= 16 then $(this).append("<span class='span#{1} appended'>1</span>") else $(this).find('.appended:last').remove() 
             
 
           span = $(this).data 'span'
@@ -76,7 +74,7 @@ $(document).ready ->
       step: 1,
       slide: (event, ui) ->
         settings.colw = ui.value
-        $('#column-width span').html(ui.value)
+        $('#width-value').html("#{ui.value}px")
         $('.row.show-grid').each ->
           span = $(this).data('span')
           width = settings.colw * span + (settings.gutter * (span - 1))
@@ -92,7 +90,7 @@ $(document).ready ->
       step: 1,
       slide: (event, ui) ->
         settings.gutter = ui.value
-        $(this).find('span').html(ui.value)
+        $('#gutter-value').html("#{ui.value}px")
         $('.row.show-grid').each ->
           span = $(this).data('span')
           width = settings.colw * span + (settings.gutter * (span - 1))

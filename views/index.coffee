@@ -7,12 +7,9 @@ html ->
     link rel: 'stylesheet', href: 'css/ui-lightness/jquery-ui-1.8.16.custom.css'
     link rel: 'stylesheet', href: 'css/app.css'
     link rel: 'stylesheet', href: 'css/docs.css'
-    link rel: 'stylesheet', href: 'farbastic/farbtastic.css'
-    link id:'bootstrap', rel:'stylesheet/less', href:"/bootstrap/lib/bootstrap.less"
-    script src: 'js/less.js'
+    link rel: 'stylesheet', href: 'bootstrap/bootstrap.min.css'
     script src: 'http://code.jquery.com/jquery.min.js'
     script src: '/js/jquery-ui-1.8.16.custom.min.js'
-    script src: 'farbastic/farbtastic.js'
     script src: 'app.js'
 
   body ->
@@ -24,7 +21,14 @@ html ->
             #form '#prevnext.pull-right', ->
             #button '.prev.btn', 'data-step':'scaffolding', -> 'Previous'
             #button '.next.btn.info', 'data-step':'scaffolding', -> 'Next'
-    
+    header '#overview.jumbotron.masthead', ->
+      div '.inner', ->
+        div '#container', ->
+          h1 'Shoelace'
+          p '.lead', ->
+            text 'A CSS generator based on the Twitter Bootstrap toolkit'
+          p ->
+            strong -> 'Alpha - Version 0.1'
     div '.container', ->
       div '.content', ->
         div '.mask', ->
@@ -37,22 +41,25 @@ html ->
 
               div '.row controls', ->
                 span '.span4' , ->
-                  h2 -> small 'Columns'
+                  h2 ->
+                    small 'Columns'
+                  span '#column-value', -> '16'
                 span '.span12' , ->
-                  div '#columns', ->
-                    span ''
+                  div '#columns.slide', ->
               div '.row controls', ->
                 span '.span4' , ->
-                  h2 -> small 'Column Width'
+                  h2 ->
+                    small 'Column Width'
+                  span '#width-value', -> '40px'
                 span '.span12' , ->
-                  div '#column-width', ->
-                    span ''
+                  div '#column-width.slide', ->
               div '.row controls', ->
                 span '.span4' , ->
-                  h2 -> small 'Column Gutters'
+                  h2 ->
+                    small 'Column Gutters'
+                  span '#gutter-value', -> '20px'
                 span '.span12' , ->
-                  div '#column-gutter', ->
-                    span ''
+                  div '#column-gutter.slide', ->
 
             div '#preview', ->
               div '.row.show-grid', 'data-span':16, ->
@@ -144,16 +151,3 @@ html ->
                   button '.gimme.btn.success', 'data-minify':true, -> 'Minified'
                   button '.gimme.btn.info', 'data-minify':false, -> 'Source'
                 pre '#code', ->
-
-               
-          # Site Scaffolding
-          section '#grid-system', ->
-            div '.page-header', ->
-              h1 ->
-                text 'Grid System '
-                small 'Roll your own'
-              div '.row.controls', ->
-                div '.span4', ->
-                  text 'Pick the span you wish to use'
-                div '.span11', ->
-                  text 'these are the controls'
