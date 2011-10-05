@@ -1,1 +1,1 @@
-web: coffee ./lib/bake.coffee
+web: coffee lib/bake.coffee
