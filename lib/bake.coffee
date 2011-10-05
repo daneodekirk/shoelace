@@ -87,5 +87,6 @@ app.get '/:script.js', (request, response) ->
   compressed = uglify.gen_code uglify.ast_squeeze uglify.ast_mangle ast, extra: yes
   response.send compressed
 
-app.listen 1123
+port = process.env.PORT or 1123
+app.listen port
 console.log "Server running on port #{app.address().port}"
