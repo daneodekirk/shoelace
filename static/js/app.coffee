@@ -55,8 +55,11 @@ $(document).ready ->
             $(this).empty()
             val = Math.floor ui.value / $(this).data 'span'
             mod = ui.value % val
-            $(this).append("<span class='span#{val}'>#{index}</span>") for num in [val..1]
-            $(this).append("<span class='span#{mod} appended'>#{mod}</span>") if mod isnt 0
+            modclone = $('#preview').find('.row').eq(mod).find('span').first().clone()
+            modclone.addClass('appended')
+            $(this).append("<span class='span#{val}' style='margin-left:20px;'>#{index}</span>") for num in [val..1]
+            $(this).append(modclone) while mod--
+            console.log $(this) if mod is 0 and index is 3
             
 
           span = $(this).data 'span'
@@ -78,8 +81,10 @@ $(document).ready ->
         $('.row.show-grid').each ->
           span = $(this).data('span')
           width = settings.colw * span + (settings.gutter * (span - 1))
-          $(this).find('span').not('.appended')
-            .css 'width', width
+          classname = $(this).find('span').not('.appended')
+            .css('width', width)
+            .attr('class')
+          $('#preview').find(".#{classname}.appended").css 'width', width
         adjustWidth settings
         
   $('#column-gutter')
@@ -94,8 +99,10 @@ $(document).ready ->
         $('.row.show-grid').each ->
           span = $(this).data('span')
           width = settings.colw * span + (settings.gutter * (span - 1))
-          $(this).find('span').not('.appended')
-            .css 'width': width, 'margin-left':"#{ui.value}px"
+          classname = $(this).find('span').not('.appended')
+            .css('width': width, 'margin-left':"#{ui.value}px")
+            .attr('class')
+          $('#preview').find(".#{classname}.appended").css('width': width, 'margin-left':"#{ui.value}px")
         adjustWidth settings
   
   ### 
