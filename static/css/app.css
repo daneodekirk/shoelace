@@ -1,29 +1,6 @@
-html,body{
-  height:100%;
-}
-body {
-  overflow-x:hidden;
-}
-#prevnext button {
-  margin: 0 3px;
-}
-section {
-  float:left;
-  height:700px;
-  width:940px;
-  padding-right:400px;
-}
-
-.mask {
-  width:10000px;
-  height:700px;
-}
 #current-width h2 {
   font-size: 5em;
   margin-top: 45px;
-}
-#preview {
-  padding-bottom:50px;
 }
 #colors {
   position:absolute;
@@ -32,4 +9,8 @@ section {
 }
 .slide {
   margin-top:25px;
+}
+pre {
+  height: 200px;
+  overflow:scroll;
 }

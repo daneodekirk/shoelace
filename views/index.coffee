@@ -31,7 +31,6 @@ html ->
             strong -> 'Alpha - Version 0.1'
     div '.container', ->
       div '.content', ->
-        div '.mask', ->
           # Site Width
           section '#site-width', ->
             div '.page-header', ->
@@ -74,6 +73,7 @@ html ->
               div '.row.show-grid', 'data-span':16, ->
                 span '.span16', -> '16'
 
+          section "#site-typography", ->
             div '.page-header', ->
               h1 ->
                 text 'Typography '
@@ -113,41 +113,58 @@ html ->
                   small 'Nullam quis risus eget urna mollis ornare vel eu leo'
 
 
+          section "#site-colors", ->
             div '.page-header', ->
               h1 ->
                 text 'Colors '
                 small "brighten it up a bit"
 
-            div '#colorpicker.input-append', style:'display:none', ->
-              input '.small', id:'hex', name:'hex', type:'text', value:'#ffc40d', style:'width:85px', maxlength:7 
-              span '.add-on', -> 'hex'
-              div '#colors', ->
+            div '.row', ->
+              div '#colorpicker.input-append', style:'display:none', ->
+                input '.small', id:'hex', name:'hex', type:'text', value:'#ffc40d', style:'width:85px', maxlength:7 
+                span '.add-on', -> 'hex'
+                div '#colors', ->
 
-            div '.span16.well', ->
-              span '.span3', ->
-                button '.btn.info', 'data-color':'blue', -> 'Blue'
-              span '.span3', ->
-                button '.btn.primary', 'data-color':'darkblue', -> 'Dark Blue'
-              span '.span3', ->
-                button '.btn.success', 'data-color':'green', -> 'Green'
-              span '.span3', ->
-                button '.btn.danger', 'data-color':'red', -> 'Red'
+              div '.span16.well', ->
+                span '.span3', ->
+                  button '.btn.info', 'data-color':'blue', -> 'Blue'
+                span '.span3', ->
+                  button '.btn.primary', 'data-color':'darkblue', -> 'Dark Blue'
+                span '.span3', ->
+                  button '.btn.success', 'data-color':'green', -> 'Green'
+                span '.span3', ->
+                  button '.btn.danger', 'data-color':'red', -> 'Red'
 
-            div '.span16.well', ->
-              span '.span3', ->
-                button '.btn', style:'background-color:#ffc40d', 'data-color':'yellow', -> 'Yellow'
-              span '.span3', ->
-                button '.btn',  style:'background-color:#f89406', 'data-color':'orange', -> 'Orange'
-              span '.span3', ->
-                button '.btn',  style:'background-color:#c3325f', 'data-color':'pink', -> 'Pink'
-              span '.span3', ->
-                button '.btn', style:'background-color:#7a43b6', 'data-color':'purple', -> 'Purple'
+              div '.span16.well', ->
+                span '.span3', ->
+                  button '.btn', style:'background-color:#ffc40d', 'data-color':'yellow', -> 'Yellow'
+                span '.span3', ->
+                  button '.btn',  style:'background-color:#f89406', 'data-color':'orange', -> 'Orange'
+                span '.span3', ->
+                  button '.btn',  style:'background-color:#c3325f', 'data-color':'pink', -> 'Pink'
+                span '.span3', ->
+                  button '.btn', style:'background-color:#7a43b6', 'data-color':'purple', -> 'Purple'
                 
-             div '.page-header', ->
+          section "#gimme-css", ->
+            div '.page-header', ->
                h1 ->
                  text 'Gimme CSS'
-              span '.span16', ->
+            
+            div '.row', ->
+              span '.span16', style:'position:relative;', ->
                 div '.well', ->
                   button '.gimme.btn.success', 'data-minify':true, -> 'Minified'
-                  button '.gimme.btn.info', 'data-minify':false, -> 'Source'
-                pre '#code', ->
+                  button '.gimme.btn.info.offset1', 'data-minify':false, -> 'Source'
+                  span 'offset1', -> 'Click to get your custom CSS.'
+                div '#code-wrapper', style:'position:relative;', ->
+                  div '.popover.twipsy', ->
+                    div '#code-direction.twipsy-inner', => 'click to select all'
+                  pre '#code', ->
+
+    # /container
+    footer ".footer", ->
+      div '.container', ->
+        span ->
+          text 'built and designed by Dane Odekirk. help out at '
+          a href:'https://github.com/daneodekirk/shoelace', -> 'GitHub'
+        span '.pull-right', -> 'put something intresting here'

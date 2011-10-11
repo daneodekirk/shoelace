@@ -174,6 +174,8 @@ $(document).ready ->
             range.selectNodeContents(text)
             selection.removeAllRanges()
             selection.addRange(range)
+
+  $('#code-direction').click -> $('#code').trigger 'click'
     
 
   steps = ['width', 'scaffolding']
@@ -195,6 +197,9 @@ $(document).ready ->
         marginLeft:"-=#{-1*width}"
       , 300
     return false
+
+  $('#code-wrapper').hover ->
+    $(this).find('.twipsy').fadeToggle()
 
 adjustWidth = (settings) ->
       sitewidth = (settings.cols * settings.colw) + (settings.gutter * (settings.cols - 1))
