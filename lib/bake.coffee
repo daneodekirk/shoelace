@@ -4,7 +4,7 @@ app = express.createServer()
 fs = require 'fs'
 coffee = require 'coffee-script'
 
-parser = require('uglify-js').parser
+ugparser = require('uglify-js').parser
 uglify = require('uglify-js').uglify
 
 
@@ -83,9 +83,10 @@ app.get '/:script.js', (request, response) ->
   response.header 'Content-Type', 'application/x-javascript'
   file = fs.readFileSync "#{STATIC}/js/#{request.param 'script'}.coffee", "ascii"
   script = coffee.compile file
-  ast = parser.parse script
+  ast = ugparser.parse script
   compressed = uglify.gen_code uglify.ast_squeeze uglify.ast_mangle ast, extra: yes
   response.send compressed
 
-app.listen 1123
+port = process.env.PORT or 1123
+app.listen port
 console.log "Server running on port #{app.address().port}"
