@@ -136,7 +136,7 @@ $(document).ready ->
   # Button Colors
   ###
 
-  $('#site-width')
+  $('#site-colors')
     .find('.btn')
     .not('.gimme')
     .each ->
