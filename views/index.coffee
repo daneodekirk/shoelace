@@ -164,7 +164,5 @@ html ->
     # /container
     footer ".footer", ->
       div '.container', ->
-        span ->
-          text 'built and designed by Dane Odekirk. help out at '
-          a href:'https://github.com/daneodekirk/shoelace', -> 'GitHub'
+        span "built and designed by Dane Odekirk. help out at #{ yield -> a href:'https://github.com/daneodekirk/shoelace', -> 'GitHub' }"
         span '.pull-right', -> 'put something intresting here'
